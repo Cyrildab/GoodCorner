@@ -1,0 +1,56 @@
+### AJOUTER UNE ANNONCE
+
+POST http://localhost:3000/postannonce
+Content-Type: application/json 
+
+{
+    "title": "Beau vélo",
+    "description": "C'est un vélo",
+    "price": 100,
+    "location": "Paris",
+    "categorie": 1
+}
+
+
+### AFFICHER LES ANNONCES
+
+GET http://localhost:3000/annonces
+
+
+
+### AJOUTER UNE CATEGORIE
+
+POST http://localhost:3000/postcategorie
+Content-Type: application/json 
+
+{
+    "name": "Moyen de locomotion"
+}
+
+### AFFICHER LES CATEGORIES 
+
+GET http://localhost:3000/categories
+
+
+### AFFICHER UNE CATEGORIE PAR ID
+
+GET http://localhost:3000/categorie/1
+
+### AFFICHER UNE ANNONCE PAR ID
+
+GET http://localhost:3000/annonce/1
+
+### Supprimer une annonce par ID
+
+DELETE http://localhost:3000/annonce/1
+
+### Modifier une catégorie avec son ID
+
+PUT http://localhost:3000/updateCategorie/1
+Content-Type: application/json 
+
+{
+    "name": "Moyen de locomotion"
+}
+
+
