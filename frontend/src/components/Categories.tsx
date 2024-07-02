@@ -1,4 +1,5 @@
 export type categorieProps = {
+  name: string;
   title: string;
   link: string;
 };

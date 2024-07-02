@@ -1,6 +1,6 @@
 ### AJOUTER UNE ANNONCE
 
-POST http://localhost:3000/postannonce
+POST http://localhost:4000/postannonce
 Content-Type: application/json 
 
 {
@@ -8,19 +8,20 @@ Content-Type: application/json
     "description": "C'est un vélo",
     "price": 100,
     "location": "Paris",
-    "categorie": 1
+    "categorie": 1,
+    "imageUrl": "https://gibuscycles.com/cdn/shop/products/draisienne-12-pouces-gibus-cycles-profil-rouge.jpg?v=1683300216"
 }
 
 
 ### AFFICHER LES ANNONCES
 
-GET http://localhost:3000/annonces
+GET http://localhost:4000/annonces
 
 
 
 ### AJOUTER UNE CATEGORIE
 
-POST http://localhost:3000/postcategorie
+POST http://localhost:4000/postcategorie
 Content-Type: application/json 
 
 {
@@ -29,24 +30,24 @@ Content-Type: application/json
 
 ### AFFICHER LES CATEGORIES 
 
-GET http://localhost:3000/categories
+GET http://localhost:4000/categories
 
 
 ### AFFICHER UNE CATEGORIE PAR ID
 
-GET http://localhost:3000/categorie/1
+GET http://localhost:4000/categorie/1
 
 ### AFFICHER UNE ANNONCE PAR ID
 
-GET http://localhost:3000/annonce/1
+GET http://localhost:4000/annonce/1
 
 ### Supprimer une annonce par ID
 
-DELETE http://localhost:3000/annonce/1
+DELETE http://localhost:4000/annonce/1
 
 ### Modifier une catégorie avec son ID
 
-PUT http://localhost:3000/updateCategorie/1
+PUT http://localhost:4000/updateCategorie/1
 Content-Type: application/json 
 
 {

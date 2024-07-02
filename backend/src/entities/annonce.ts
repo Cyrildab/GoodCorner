@@ -7,46 +7,30 @@ export class Annonce extends BaseEntity {
   id: number | undefined;
 
   @Column({ length: 100 })
-  title: string;
+  title?: string;
 
   @Column()
-  description: string;
+  description?: string;
 
   @Column()
-  price: number;
+  price?: number;
 
   @Column()
-  location: string;
+  location?: string;
+
+  @Column()
+  imgUrl?: string;
 
   @ManyToOne(() => Categorie, (categorie) => categorie.annonces, { eager: true })
-  categorie: Categorie | null;
+  categorie?: Categorie | null;
 
-  constructor(title: string, description: string, price: number, location: string, categorie: Categorie) {
+  constructor(title: string, description: string, price: number, location: string, imgUrl: string, categorie: Categorie) {
     super();
     this.title = title;
     this.description = description;
     this.price = price;
     this.location = location;
+    this.imgUrl = imgUrl;
     this.categorie = categorie;
-  }
-
-  public getId(): number | undefined {
-    return this.id;
-  }
-
-  public getTitle(): string {
-    return this.title;
-  }
-
-  public getDescription(): string {
-    return this.description;
-  }
-
-  public getPrice(): number {
-    return this.price;
-  }
-
-  public getLocation(): string {
-    return this.location;
   }
 }

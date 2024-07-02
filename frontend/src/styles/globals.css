@@ -31,15 +31,13 @@ h1 {
 }
 
 .categories-navigation {
-  font-size: 12px;
+  font-size: 20px;
   font-weight: bold;
   color: #666;
-  padding: 16px 10px 6px;
-  white-space: nowrap;
-  overflow-x: scroll;
 }
 
 .category-navigation-link {
+  margin-inline: 10px;
   text-decoration: unset;
   color: inherit;
 }
@@ -105,13 +103,13 @@ h1 {
 .main-content {
   max-width: 832px;
   padding: 0 16px;
-  margin: 120px auto 48px;
+  margin-top: 100px;
 }
 
 .recent-ads {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .ad-card-container {
@@ -119,6 +117,7 @@ h1 {
   border: 1px solid lightgray;
   color: inherit;
   background-color: white;
+  width: 300px;
 }
 
 .ad-card-link {
@@ -127,8 +126,8 @@ h1 {
 }
 
 .ad-card-image {
-  width: 100%;
   border-radius: 8px;
+  width: 300px;
 }
 
 .ad-card-text {
@@ -154,6 +153,16 @@ h1 {
 .ad-details {
   display: grid;
   gap: 24px;
+}
+
+.buttonAdPrice {
+  background-color: orange;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+.filterButton {
+  margin-bottom: 20px;
 }
 
 @media screen and (min-width: 720px) {
