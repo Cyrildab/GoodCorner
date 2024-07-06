@@ -1,77 +1,93 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-
-type categorieType = {
-  name: string;
-  id: number;
-};
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_ALL_CATEGORIES } from "@/graphql-queries/categories";
+import { POST_NEW_ANNONCES } from "@/graphql-queries/annonces";
 
 const NewAdd = () => {
-  const [categories, setCategories] = useState<categorieType[]>([]);
+  const { data: categorieResult, loading: categorieLoading, error: categorieError } = useQuery(GET_ALL_CATEGORIES);
 
-  useEffect(() => {
-    const fetchCategorie = async () => {
-      try {
-        const result = await axios.get<categorieType[]>("http://localhost:4000/categories");
-        setCategories(result.data);
-        console.log(result.data);
-      } catch (err) {
-        console.log("error", err);
-      }
-    };
-    fetchCategorie();
-  }, []);
+  const [publishAd, { loading, data, error }] = useMutation(POST_NEW_ANNONCES);
+
+  if (categorieLoading) {
+    return <p>Loading ...</p>;
+  }
+
+  if (categorieError) {
+    return <p>Error: {categorieError.message}</p>;
+  }
+
+  const categories = categorieResult.getAllCategories;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const formJson = Object.fromEntries(formData.entries());
+
+    const categoryId = parseInt(formJson.categorie as string);
+
+    try {
+      await publishAd({
+        variables: {
+          title: formJson.title as string,
+          description: formJson.description as string,
+          price: parseInt(formJson.price, 10),
+          ImgUrl: formJson.imgUrl as string,
+          location: formJson.location as string,
+          categorieId: categoryId,
+        },
+      });
+      console.log("Ad published successfully!");
+    } catch (err) {
+      console.error("Error publishing ad:", err);
+    }
+    console.log(formJson.price);
+  };
 
   return (
     <>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          const form = e.target;
-          const formData = new FormData(form as HTMLFormElement);
-
-          const formJson = Object.fromEntries(formData.entries());
-          axios.post("http://localhost:4000/postannonce", formJson);
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         <label>
           Titre de l&apos;annonce: <br />
-          <input type="text-field" name="title" />
+          <input type="text" name="title" required />
         </label>
         <br />
         <label>
           Description: <br />
-          <input type="text-field" name="description" />
+          <input type="text" name="description" />
         </label>
         <br />
         <label>
           Location: <br />
-          <input type="text-field" name="location" />
+          <input type="text" name="location" />
         </label>
         <br />
         <label>
-          <br />
           Prix: <br />
-          <input type="number" className="text-field" name="price" />
+          <input type="number" name="price" />
         </label>
         <br />
-        <select name="categorie">
-          {categories.map((el) => (
-            <option value={el.id} key={el.id}>
-              {el.name}
-            </option>
-          ))}
-        </select>
+        <label>
+          Catégorie: <br />
+          <select name="categorie" required>
+            {categories.map((el) => (
+              <option value={el.id} key={el.id}>
+                {el.name}
+              </option>
+            ))}
+          </select>
+        </label>
         <br />
         <label>
           Image: <br />
-          <input type="text-field" name="imgUrl" />
+          <input type="text" name="imgUrl" />
         </label>
         <br />
-        <button className="buttonSubmit" type="submit">
+        <button className="buttonSubmit" type="submit" disabled={loading}>
           Submit
         </button>
+        {error && <p>Error: {error.message}</p>}
       </form>
     </>
   );
